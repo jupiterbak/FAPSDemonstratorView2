@@ -4,7 +4,7 @@ services:
   screen_service:
     build: .
     restart: always
-    image: fapsdemonstratorview2:latest
+    image: fapsdemonstratorview2_screen_service:latest
     environment:
       - PORT:8090
     ports:
