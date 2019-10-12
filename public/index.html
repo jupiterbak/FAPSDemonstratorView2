@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- <html lang="en" class="dark">-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FAPS I4.0 Demonstrator Dashboard</title>
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="assets/images/faps/faps_favicon.ico">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/96c139/fff&text=FAPS">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/96c139/fff&text=FAPS">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/96c139/fff&text=FAPS">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/96c139/fff&text=FAPS">
+    <!-- Styles -->
+    <link href="assets/css/lib/chartist/chartist.min.css" rel="stylesheet">
+    <link href="assets/css/lib/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="assets/js/lib/data-table2/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/js/lib/data-table2/buttons.bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/owl.carousel.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/weather-icons.css" rel="stylesheet" />
+    <link href="assets/css/lib/menubar/sidebar.css" rel="stylesheet">
+    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/lib/unix.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<body class="sidebar-hide">
+
+    <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+        <div class="nano">
+            <div class="nano-content">
+                <ul>
+                    <li class="label">Main</li>
+                    <li class="active"><a class="sidebar-sub-toggle"><i class="ti-home"></i> Dashboard <span class="badge badge-primary">6</span> <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="index.html">Dashboard</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="label">Apps</li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i>  Charts  <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="index.html">Live Data</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="faps.de"><i class="ti-arrow-top-right"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /# sidebar -->
+    <div class="header">
+        <div class="pull-left">
+            <div class="logo"><a href="index.html"><!-- <img src="assets/images/logo.png" alt="" /> --><span>Webstrot Admin</span></a></div>
+            <div class="hamburger sidebar-toggle">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
+        </div>
+    </div>
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div id="main-content">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card alert">
+                                        <div class="card-header">
+                                            <h4 class="m-l-5">Production Statistics </h4>
+                                            <div class="card-header-right-icon">
+                                                <ul>
+                                                    <li><i class="ti-reload"></i></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="media-stats-content text-center">
+                                                <div class="row">
+                                                    <div class="col-lg-4 border-bottom">
+                                                        <div class="stats-content">
+                                                            <div class="stats-digit" id="order_count">9358</div>
+                                                            <div class="stats-text">Incoming Orders</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 border-bottom border-left">
+                                                        <div class="stats-content">
+                                                            <div class="stats-digit" id="executed_order_count">6584</div>
+                                                            <div class="stats-text">Executed Orders</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 border-bottom  border-left">
+                                                        <div class="stats-content">
+                                                            <div class="stats-digit" id="energy_count">12470</div>
+                                                            <div class="stats-text">Watt of Energy consumed</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="stats-content">
+                                                            <div class="stats-digit">82%</div>
+                                                            <div class="stats-text">OEE This Month</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 border-left">
+                                                        <div class="stats-content">
+                                                            <div class="stats-digit">94%</div>
+                                                            <div class="stats-text">OEE This Week</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 border-left">
+                                                        <div class="stats-content">
+                                                            <div class="stats-digit">96%</div>
+                                                            <div class="stats-text">OEE Today</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="card alert">
+                                        <div class="card-header">
+                                            <h4>Current Order </h4>
+                                            <div class="card-header-right-icon">
+                                                <ul>
+                                                    <li><i class="ti-reload"></i></li>
+                                                    <li class="doc-link"><a href="#"><i class="ti-link"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="recent-meaasge">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <a href="#"><img class="media-object" src="assets/images/faps/LOGO_FAPS_CMYK.png" alt="..."></a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h5 class="media-heading">Order-ID: <span id="new_order_id">X-XXXX-XXXX-XXXX</span></h5>
+                                                    <div class="meaasge-date">0 minutes Ago</div>
+                                                    <p>Order contains <span id="new_order_id_count">3</span> item(s) </p>                                                    
+                                                    <div class="current-progressbar">
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+                                                                40% progress
+                                                            </div>
+                                                        </div>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="media-stats-content text-center">
+                                                <div class="row">
+                                                    <div class="col-lg-4 border-bottom">                                                        
+                                                        <div class="stats-content">
+                                                            <div class="stats-digit">
+                                                                <img src='processed_images/MAGAZIN_0.png' id="MAGAZIN_0" class=" img-responsive" alt="Magazin 00">
+                                                            </div>  
+                                                            <div class="stats-text">Magazin 0</div>                                                        
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 border-bottom border-left">
+                                                        <div class="stats-content">
+                                                            <div class="stats-digit">
+                                                                <img src='processed_images/MAGAZIN_1.png' id="MAGAZIN_1" class=" img-responsive" alt="Magazin 01">
+                                                            </div> 
+                                                            <div class="stats-text">Magazin 1</div>                                                           
+                                                        </div>                                                                
+                                                    </div>
+                                                    <div class="col-lg-4 border-bottom  border-left">
+                                                        <div class="stats-content">
+                                                            <div class="stats-digit">
+                                                                <img src='processed_images/MAGAZIN_2.png' id="MAGAZIN_2" class=" img-responsive" alt="Magazin 01">
+                                                            </div>   
+                                                            <div class="stats-text">Magazin 2</div>                                                         
+                                                        </div>                                                                
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="stats-content">
+                                                            <div class="stats-digit">
+                                                                <img src='processed_images/MAGAZIN_3.png' id="MAGAZIN_3" class=" img-responsive" alt="Magazin 03">
+                                                            </div>   
+                                                            <div class="stats-text">Magazin 3</div>                                                         
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 border-left border-right">
+                                                        <div class="stats-content">
+                                                            <div class="stats-digit">
+                                                                <img src='processed_images/MAGAZIN_4.png' id="MAGAZIN_4" class=" img-responsive" alt="Magazin_ 04">
+                                                            </div>   
+                                                            <div class="stats-text">Magazin 4</div>                                                         
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 border-left">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-lg-12">
+                                            <div class="card alert">
+                                                <div class="card-body">
+                                                    <div class="table-responsive">
+                                                        <table class="display table table-borderd table-hover" id="order_list">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Order-ID</th>
+                                                                    <th>Owner</th>
+                                                                    <th>Item Count</th>
+                                                                    <th>Last Update</th>
+                                                                    <th>Status</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                    
+                                                            </tbody>
+                                                            
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <!-- <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="stat-widget-four">
+                                            <div class="stat-icon">
+                                                <i class="ti-pulse"></i>
+                                            </div>
+                                            <div class="stat-content">
+                                                <div class="text-left dib">
+                                                    <div class="stat-heading"><span id="StateCurrent_temp">###</span></div>
+                                                    <div class="stat-text"><span id="UnitModeCurrent_temp">###</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="col-lg-12">
+                                        <div class="card alert">
+                                            <div class="card-header">
+                                                <h4>Energy Consumption</h4>
+                                            </div>
+                                            <div class="flot-container">
+                                                <div id="energy-load" class="cpu-load" style="padding: 0px; position: relative;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /# card -->
+                                    </div>
+                                <div class="col-lg-12">
+                                    <div class="card alert">
+                                        <div class="card-body">
+                                            <div class="ct-chart"></div>
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                        <!-- /# column -->
+
+                    </div>
+                    <!-- /# row -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="footer">
+                                <p>&copy; Copyright 2019 <a href="faps.fau.de" class="page-refresh">FAU - FAPS</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="search">
+        <button type="button" class="close">×</button>
+        <form>
+            <input type="search" value="" placeholder="type keyword(s) here" />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- jquery vendor -->
+    <script src="assets/js/lib/jquery.nanoscroller.min.js"></script>
+    <!-- nano scroller -->
+    <script src="assets/js/lib/menubar/sidebar.js"></script>
+    <script src="assets/js/lib/preloader/pace.min.js"></script>
+    <!-- sidebar -->
+    <script src="assets/js/lib/bootstrap.min.js"></script>
+    <!-- bootstrap -->
+
+    <script src="assets/js/lib/data-table/datatables.min.js"></script>
+
+
+    <!--  flot-chart js -->
+    <script src="assets/js/lib/flot-chart/excanvas.min.js"></script>
+    <script src="assets/js/lib/flot-chart/jquery.flot.js"></script>
+    <script src="assets/js/lib/flot-chart/jquery.flot.pie.js"></script>
+    <script src="assets/js/lib/flot-chart/jquery.flot.time.js"></script>
+    <script src="assets/js/lib/flot-chart/jquery.flot.stack.js"></script>
+    <script src="assets/js/lib/flot-chart/jquery.flot.resize.js"></script>
+    <script src="assets/js/lib/flot-chart/jquery.flot.crosshair.js"></script>
+    <script src="assets/js/lib/flot-chart/curvedLines.js"></script>
+    <script src="assets/js/lib/flot-chart/flot-tooltip/jquery.flot.tooltip.min.js"></script>
+    <!-- // flot-chart js -->
+    <!-- SocketIO-->
+    <script src="assets/js/lib/SocketIO/socket.io.js"></script>
+    <!-- // SocketIO -->
+
+    <script src="assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
+    <script src="assets/js/lib/weather/weather-init.js"></script>
+    <script src="assets/js/lib/circle-progress/circle-progress.min.js"></script>
+    <script src="assets/js/lib/circle-progress/circle-progress-init.js"></script>
+    <script src="assets/js/lib/sparklinechart/jquery.sparkline.min.js"></script>
+    <script src="assets/js/lib/sparklinechart/sparkline.init.js"></script>
+    <script src="assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
+    <script src="assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
+
+
+    <script src="assets/js/scripts.js"></script>
+</body>
+
+</html>

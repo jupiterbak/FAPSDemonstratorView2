@@ -1,0 +1,30 @@
+{
+  "name": "demonstrator_screen",
+  "version": "1.0.0",
+  "description": "Demonstrator Screen",
+  "main": "app.js",
+  "dependencies": {
+    "amqplib": "^0.5.1",
+    "async": "^2.3.0",
+    "body-parser": "^1.17.2",
+    "colors": "^1.1.2",
+    "express": "^4.15.2",
+    "long": "^3.2.0",
+    "request": "^2.75.0",
+    "socket.io": "^2.3.0",
+    "util": "^0.10.3",
+    "winston": "^3.2.1"
+  },
+  "repository": {},
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "screen",
+    "faps",
+    "Demonstrator"
+  ],
+  "author": "Jupiter Bakakeu",
+  "license": "MIT"
+}
