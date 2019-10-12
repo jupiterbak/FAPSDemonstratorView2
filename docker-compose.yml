@@ -10,6 +10,12 @@ services:
       - "8090:8090"
     networks: 
       - backend
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+        - node.hostname == kain
 
 networks:
   backend:
