@@ -191,7 +191,7 @@
 		17: "UserMode02",
 		18: "UserMode03",
 		19: "UserMode04"		
-	}
+	};
 	
 	var OMACState = {    
 		0:"Undefined",
@@ -212,13 +212,20 @@
 		15:"Resetting",
 		16:"Completing",
 		17:"Complete"
-	}
+	};
     var socket = io('/');
     socket.on('connect', function(){});
     var executed_orders_count = 6584;
+    var order_progess = 40;
     socket.on('new_image_processed', function(data){
         executed_orders_count = executed_orders_count + 1;
+        order_progess = order_progess + 10;  
+        if(order_progess > 100){
+            order_progess = 100;
+        }      
         $('#executed_order_count').text(executed_orders_count);
+        $('#order_progess').attr("aria-valuenow",order_progess).css('width', order_progess + "%");
+        $('#order_progess').text(order_progess + "% progress");
         if(data.object && data.url){
             var _target = $("#" + data.object);
             if(_target){
@@ -276,7 +283,20 @@
         
         
     // });
+    var order_count = 9358;
+    socket.on("new_order", function (_data) {
+        order_count = order_count + 1;
+        order_progess = 40;
+        $('#order_progess').attr("aria-valuenow",order_progess).css('width', order_progess + "%");
+        $('#order_progess').text(order_progess + "% progress");
+        $('#order_count').text(order_count);
+        $('#new_order_id').text(_data.order.order_id);
+        $('#new_order_id_count').text(_data.order.list.length);
+    });
+    socket.on('disconnect', function(){});
 
+    /*    Datatable
+    ------------------------------------------------------*/
     var last_table = $('#order_list').DataTable({
         lengthMenu: [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
         ajax: {
@@ -295,18 +315,5 @@
     setInterval( function () {
         last_table.ajax.reload( null, false ); // user paging is not reset on reload
     }, 10000 );
-
-    var order_count = 9358;
-    socket.on("new_order", function (_data) {
-        order_count = order_count + 1;
-        $('#order_count').text(order_count);
-        $('#new_order_id').text(_data.order.order_id);
-        $('#new_order_id_count').text(_data.order.list.length);
-    });
-    socket.on('disconnect', function(){});
-
-    /*    Datatable
-    ------------------------------------------------------*/
-    
 
 })(jQuery);

@@ -719,7 +719,7 @@ a.dt-button.active:not(.disabled) {
 /*    Header
 ---------------*/
 .header {
-  background: #96c139;
+  background: #96c139; /* #fff; */
   position: fixed;
   width: 100%;
   min-height: 50px;
@@ -735,7 +735,8 @@ a.dt-button.active:not(.disabled) {
   transition: width 300ms ease-in-out;
 }
 .logo span {
-  color: #252525;
+  color: #96c139;
+  /* color: #252525; */
   font-size: 16px;
   font-weight: 600;
 }
@@ -5014,3 +5015,112 @@ p {
 		display:inline-grid !important;
 	}
 }
+
+#ct-chart-d3 {
+  height: 600px;
+}
+
+
+/* Add CSS for D3 Chart */
+svg {
+  font-weight: 700;
+}
+
+sub {
+  font-size: .83em;
+  bottom: -0.25em;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  font-size: .4em;
+  bottom: .4em;
+  position: relative;
+  vertical-align: super;
+  color:#BCD5D5;
+}
+
+#ct-chart-d3 {
+  text-align: center;
+  margin: 15px 0;
+  height: 600px;
+}
+
+
+#j-energias {
+  padding: 10px 0 20px 0;
+  overflow: hidden;
+  background-color: #222;
+}
+.energias {
+  overflow: hidden;
+}
+.title {
+  padding: 15px 15px 0 0 ;  
+}
+.visualizacion__title {
+  padding: 15px 15px 0 15px;
+  color: #ededed;
+}
+.visualizacion__subtitle {
+  padding: 0 0 0 15px;
+  color:#BCD5D5;
+}
+
+.energia {
+    position: relative;
+    padding: 85px 60px 20px;
+    font-weight: 600;
+    font-size: .9em;
+    color: #7B8B8B;
+    background-color: #222;
+    float: left;
+    width: 25%;
+}
+
+.energia:before {
+    font-family: "energia-font";
+    font-weight: 100;
+    content: "";
+    position: absolute;
+    top: 0;
+    font-size: 4.0em;
+    color: #F5A623;
+    text-align: left;
+    display: block;
+    line-height: 95px;
+}
+
+.energia__titulo {
+    font-size: 1.2em;
+    color: #BCD5D5;
+}
+
+.energia__subtitulo {
+    padding-top: 10px;
+    line-height: 1.2em;
+}
+
+.energia__valor {
+    font-size: 1.1em;
+    line-height: 1.1em;
+    color: #BCD5D5;
+}
+
+.energia__valor--destacado {
+    font-size: 1.6em;
+}
+
+.testbtn {
+    font-size: 1.5em;
+    margin: 30px 10px;
+}
+
+.idioma {
+  display: inline-block;
+  float: right;
+  padding-right: 22px;
+  padding-top: 15px;
+  font-size: 0.8em;
+}
+

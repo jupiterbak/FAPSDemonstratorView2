@@ -1,0 +1,254 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:700);
+ 
+/* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+ 
+/* Solarized Palette - http://ethanschoonover.com/solarized ---------
+  lightgray      : #819090;
+  gray           : #708284;
+  mediumgray     : #536870;
+  darkgray       : #475B62;
+  darkblue       : #0A2933;
+  darkerblue     : #042029;
+  paleryellow    : #FCF4DC;
+  paleyellow     : #EAE3CB;
+  yellow         : #A57706;
+  orange         : #BD3613;
+  red            : #D11C24;
+  pink           : #C61C6F;
+  purple         : #595AB7;
+  blue           : #2176C7;
+  cyan           : #259286;
+  green          : #738A05; */
+ 
+body {
+  font-family: "Roboto Slab", "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 1em;
+  line-height: 1em;
+  background: #272727;
+  color: #475B62;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+}
+svg {
+  font-weight: 700;
+}
+
+* {
+  box-sizing: border-box;
+
+}
+strong {
+  font-weight: 600;
+}
+ 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: #ededed;
+  margin-bottom: .4em;
+}
+
+h2 {
+  font-size: 1.65em
+} 
+
+h3 {
+  font-size: 1.25em
+}
+
+sub {
+  font-size: .83em;
+  bottom: -0.25em;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  font-size: .4em;
+  bottom: .4em;
+  position: relative;
+  vertical-align: super;
+  color:#BCD5D5;
+}
+
+.container {
+    max-width: 1024px;
+    width: 100%;
+    margin: 0 auto;
+    background: #2f2f2f;
+}
+
+
+/*DEBUG
+
+
+@media all and (max-width: 500px) {
+  h2 {
+    padding-left: 10px;
+    text-align: center;
+  }
+  .container {
+    width: 100%;
+  }
+}
+*/ 
+
+
+
+#chart {
+  text-align: center;
+  margin: 15px 0;
+}
+
+p {
+    margin-bottom: .5em;
+    color: #999;
+}
+
+#j-energias {
+  padding: 10px 0 20px 0;
+  overflow: hidden;
+  background-color: #222;
+}
+.energias {
+  overflow: hidden;
+}
+.title {
+  padding: 15px 15px 0 0 ;  
+}
+.visualizacion__title {
+  padding: 15px 15px 0 15px;
+  color: #ededed;
+}
+.visualizacion__subtitle {
+  padding: 0 0 0 15px;
+  color:#BCD5D5;
+}
+
+.energia {
+    position: relative;
+    padding: 85px 60px 20px;
+    font-weight: 600;
+    font-size: .9em;
+    color: #7B8B8B;
+    background-color: #222;
+    float: left;
+    width: 25%;
+}
+
+.energia:before {
+    font-family: "energia-font";
+    font-weight: 100;
+    content: "";
+    position: absolute;
+    top: 0;
+    font-size: 4.0em;
+    color: #F5A623;
+    text-align: left;
+    display: block;
+    line-height: 95px;
+}
+
+.energia__titulo {
+    font-size: 1.2em;
+    color: #BCD5D5;
+}
+
+.energia__subtitulo {
+    padding-top: 10px;
+    line-height: 1.2em;
+}
+
+.energia__valor {
+    font-size: 1.1em;
+    line-height: 1.1em;
+    color: #BCD5D5;
+}
+
+.energia__valor--destacado {
+    font-size: 1.6em;
+}
+
+.testbtn {
+    font-size: 1.5em;
+    margin: 30px 10px;
+}
+
+footer {
+  font-weight: 700;
+  min-height: 50px;
+}
+
+a {
+  text-decoration: none;
+}
+/* unvisited link */
+a:link {
+    color: #4DECFF;
+}
+
+/* visited link */
+a:visited {
+    color: #9A7BFF;
+}
+
+/* mouse over link */
+a:hover {
+    color: #CFFAFF;
+}
+
+/* selected link */
+a:active {
+    color: #FFF;
+}
+
+.credits {
+  padding: 15px 15px 0 15px;
+  text-align: center;
+}
+
+.share {
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.share p {
+    text-align: center;
+    color: #666;
+    margin-bottom:5px;
+}
+
+.share a {
+    width: 63px;
+    height: 63px;
+    display: inline-block;
+    background: url("../imgs/social-gadget-sprite-693x189.png") 0 0 no-repeat;
+    border-radius: 75%;
+    overflow: hidden;
+}
+
+a.twitter {
+    background-position: -504px 0;
+}
+
+a.facebook {
+    background-position: 0 0;
+}
+
+a.pinterest {
+    background-position: -315px 0;
+}
+a.googleplus {
+    background-position: -189px 0;
+}
+.share a:hover {
+  background-position-y: -127px;
+}
+.idioma {
+  display: inline-block;
+  float: right;
+  padding-right: 22px;
+  padding-top: 15px;
+  font-size: 0.8em;
+}

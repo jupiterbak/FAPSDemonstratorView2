@@ -1,8 +1,8 @@
 /*#####################################################################################*/
 /* General options	
 /*#####################################################################################*/
+const uuidv = require('uuid/v1');
 var http = require('http');
-const request = require('request');
 var express = require('express'),
 	app = module.exports.app = express();
 var bodyParser     =        require("body-parser");
@@ -41,6 +41,57 @@ io.on('connection', function (socket) {
 		logger.info("Socket IO Disconnection");
 	});
 });
+
+/*#####################################################################################*/
+/* Energy data
+/*#####################################################################################*/
+var energy_data = [], totalPoints = 144;
+var list_axis_1 = [],list_axis_2 = [],list_axis_3 = [];
+
+function msToTimeLast10Minutes(s) {
+    var time_last_10_mins = s - ( s % (10 * 60 * 1000));
+    var _d = new Date(time_last_10_mins);
+  
+    return _d.toISOString();
+}
+
+function addData(_new_data) {
+    // Do a random walk
+    if (energy_data.length == 0) {
+        var t_ms_now = Date.now() - (10 * 60 * 1000);
+        while (energy_data.length < totalPoints) {
+            var axis_1 = Math.floor(80 + (Math.random() * 10)),
+                axis_2 = Math.floor(20 + (Math.random() * 30)),
+                axis_3 = Math.floor(130 + (Math.random() * 10)),
+                components = Math.floor( 5 + (Math.random() * 10)),
+                conveyor = Math.floor(20 + (Math.random() * 30));
+            energy_data.push({
+                '_id': uuidv(),
+                '_v':0,
+                'ts': msToTimeLast10Minutes(t_ms_now),
+                'axis_1': axis_1,
+                'axis_2': axis_2,
+                'axis_3': axis_3,
+                'components': components,
+                'conveyor': conveyor,
+                'dem':axis_1 + axis_2 + axis_3 + conveyor + components
+            });
+            t_ms_now = t_ms_now - (10 * 60 * 1000);
+        }
+    }
+
+    if (energy_data.length == totalPoints){
+        energy_data.pop();
+    }
+    energy_data.unshift(_new_data);
+   
+    // Zip the generated y values with the x values
+    var res = [];
+    for (var i = 0; i < energy_data.length; ++i) {
+        res.push(energy_data[i]);
+    }
+    return res;
+}
 
 
 /*#####################################################################################*/
@@ -81,9 +132,54 @@ amqp.connect("amqp://esys:esys@cloud.faps.uni-erlangen.de",function(err, conn) {
                 //console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue);
                 ch.bindQueue(q.queue, "FAPS_DEMONSTRATOR_LiveStreamData_MachineData", '');
 
+                // generate random energy value
+                var last_fetch = 0;
+
                 ch.consume(q.queue, function(msg) {
                     //console.log(" [x] %s", msg.content.toString());
+                    _obj = JSON.parse(msg.content.toString());
+
+                    list_axis_1.push(Math.abs(_obj.value.data.Portal_Wirkleistung_L1));
+                    list_axis_2.push(Math.abs(_obj.value.data.Portal_Wirkleistung_L2));
+                    list_axis_3.push(Math.abs(_obj.value.data.Portal_Wirkleistung_L3));
+                    
+                    
+                    if(Date.now() - last_fetch >= (10 * 60 * 1000)){
+                        const res_1 = list_axis_1.reduce((total,currentValue) => {
+                            return total + currentValue;
+                        });
+                        const res_2 = list_axis_2.reduce((total,currentValue) => {
+                            return total + currentValue;
+                        });
+                        const res_3 = list_axis_3.reduce((total,currentValue) => {
+                            return total + currentValue;
+                        });
+
+                        var axis_1 = res_1 / list_axis_1.length,
+                        axis_2 = res_2 / list_axis_2.length,
+                        axis_3 = res_3 / list_axis_3.length,
+                        components = Math.floor( 5 + (Math.random() * 10)),
+                        conveyor = Math.floor(20 + (Math.random() * 30));
+                        energy_data = addData(
+                            {
+                                '_id': uuidv(),
+                                'ts': msToTimeLast10Minutes(Date.now()),
+                                '_v':0,
+                                'axis_1': axis_1,
+                                'axis_2': axis_2,
+                                'axis_3': axis_3,
+                                'components': components,
+                                'conveyor': conveyor,
+                                'dem':axis_1 + axis_2 + axis_3 + conveyor + components
+                            }
+                        );
+                        list_axis_1 = [];
+                        list_axis_2 = [];
+                        list_axis_3 = [];
+                        last_fetch = Date.now();
+                    }
                     io.emit('AMQPMachineData', msg.content.toString());
+
                 }, {noAck: true});
             }
         });
@@ -119,6 +215,7 @@ amqp.connect("amqp://esys:esys@cloud.faps.uni-erlangen.de",function(err, conn) {
                     
                 ch.consume(q.queue, function(msg) {
                     var _data = JSON.parse(msg.content.toString());
+                    
                     var _object = _data["object"];
                     var data = {
                         "object":_object,
@@ -144,22 +241,14 @@ app.get('/', function (req, res) {
   res.sendfile('public/');
 });
 
+app.get('/getAggergatedEnergyData', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(energy_data));
+});
+
 webserver.listen(port, function () {
     logger.info('SCREEN app listening on port: ' + port);
 });
-
-// // Set time out to get the current order list
-// setInterval(function() {
-//     request('http://cloud.faps.uni-erlangen.de:3000/orders', { json: true }, (err, res, body) => {
-//         if (err) {
-//             logger.error('SCREEN app error fetching order list:' + err.stack);
-//         }else{
-//             //logger.info('SCREEN app update new order list.');
-//             io.emit('order_list', body);
-//         }        
-//     });
-// }, 10000);
-
 
 process.on('uncaughtException', function(err) {
     logger.error('SCREEN app Uncaught Exception:' + err.stack);
