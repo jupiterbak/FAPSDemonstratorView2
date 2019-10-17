@@ -608,7 +608,8 @@ html.rtl .sidebar-hide .sidebar.sidebar-shrink.sidebar-hide-to-small ~ .content-
 
 
 .hamburger .line {
-    background-color: #252525;
+    background-color:  #5d7723;
+    /* background-color: #252525; */
     display: block;
     height: 3px;
     margin: 4px auto;

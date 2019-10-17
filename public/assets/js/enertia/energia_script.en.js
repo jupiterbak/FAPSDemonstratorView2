@@ -320,7 +320,7 @@
             .attr('x', (radio + 33) * Math.sin(grados_a_radianes(rotation)))
             .attr('y', (radio + 33) * Math.cos(grados_a_radianes(rotation)) + 7)
             .attr('text-anchor', 'middle')
-            .style('font-size', '12')
+            .style('font-size', '10')
             //.style('font-family', 'Roboto Slab, Helvetica Neue, Helvetica, sans-serif')
             .style('fill', '#666');
     }

@@ -719,7 +719,7 @@ a.dt-button.active:not(.disabled) {
 /*    Header
 ---------------*/
 .header {
-  background: #96c139; /* #fff; */
+  background:#ffffff; /*  #96c139;#fff; */
   position: fixed;
   width: 100%;
   min-height: 50px;
@@ -735,7 +735,7 @@ a.dt-button.active:not(.disabled) {
   transition: width 300ms ease-in-out;
 }
 .logo span {
-  color: #96c139;
+  color: #5d7723;
   /* color: #252525; */
   font-size: 16px;
   font-weight: 600;
