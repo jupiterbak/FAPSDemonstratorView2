@@ -1,0 +1,35 @@
+{
+    "value": {
+        "DB33": {
+            "Motor_Band_1_Velocity": 0,
+            "Motor_Band_1_Acceleration": 0,
+            "Motor_Band_1_Power": 0,
+            "Motor_Band_2_Velocity": 0,
+            "Motor_Band_2_Acceleration": 0,
+            "Motor_Band_2_Power": 0,
+            "Motor_Band_3_Velocity": 0,
+            "Motor_Band_3_Acceleration": 0,
+            "Motor_Band_3_Power": 0,
+            "Motor_Umsetzer_11_Velocity": 0,
+            "Motor_Umsetzer_11_Acceleration": 0,
+            "Motor_Umsetzer_11_Power": 0,
+            "Motor_Umsetzer_12_Velocity": 0,
+            "Motor_Umsetzer_12_Acceleration": 0,
+            "Motor_Umsetzer_12_Power": 0,
+            "Motor_Umsetzer_21_Velocity": 0,
+            "Motor_Umsetzer_21_Acceleration": 0,
+            "Motor_Umsetzer_21_Power": 0,
+            "Motor_Umsetzer_22_Velocity": 0,
+            "Motor_Umsetzer_22_Acceleration": 0,
+            "Motor_Umsetzer_22_Power": 0,
+            "Produkt_wartet_auf_Abgabe": false,
+            "Product_abgegeben": false,
+            "AGV_bereit": false,
+            "Produkt_Band2_Bereit": true,
+            "Linearachse_Fertig": false
+        }
+    },
+    "id": "Conveyor_Data",
+    "timestampOnSend": 1571376480964,
+    "timestamp": "2019-10-18 05:28:00"
+}
