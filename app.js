@@ -52,6 +52,8 @@ var list_axis_1 = [],
     list_axis_2 = [],
     list_axis_3 = [];
 
+var last_conveyor_data = {};
+
 function msToTimeLast10Minutes(s) {
     var time_last_10_mins = s - (s % (10 * 60 * 1000));
     var _d = new Date(time_last_10_mins);
@@ -133,7 +135,7 @@ amqp.connect("amqp://esys:esys@cloud.faps.uni-erlangen.de", function(err, conn) 
             if (err) {
                 logger.error('AMQP Queue Assertion Error: ' + err.toString());
             } else {
-                //console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue);
+                logger.info(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue);
                 ch.bindQueue(q.queue, "FAPS_DEMONSTRATOR_LiveStreamData_MachineData", '');
 
                 // generate random energy value
@@ -190,7 +192,7 @@ amqp.connect("amqp://esys:esys@cloud.faps.uni-erlangen.de", function(err, conn) 
             if (err) {
                 logger.error('AMQP Queue Assertion Error: ' + err.toString());
             } else {
-                logger.info("AMQP: Waiting for messages in " + q.queue + ". To exit press CTRL+C");
+                logger.info(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue);
                 ch.bindQueue(q.queue, "FAPS_DEMONSTRATOR_ImageProcessing_ProcessingResults_Debug", '');
 
                 ch.consume(q.queue, function(msg) {
@@ -212,7 +214,7 @@ amqp.connect("amqp://esys:esys@cloud.faps.uni-erlangen.de", function(err, conn) 
             if (err) {
                 logger.error('AMQP Queue Assertion Error: ' + err.toString());
             } else {
-                logger.info("AMQP: Waiting for messages in " + q.queue + ". To exit press CTRL+C");
+                logger.info(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue);
                 ch.bindQueue(q.queue, "FAPS_DEMONSTRATOR_ImageProcessing_ProcessingSignals", '');
 
                 ch.consume(q.queue, function(msg) {
@@ -225,6 +227,20 @@ amqp.connect("amqp://esys:esys@cloud.faps.uni-erlangen.de", function(err, conn) 
                     };
                     io.emit('new_image_processed', data);
                     io.emit('new_order', _data);
+                }, { noAck: true });
+            }
+        });
+
+        // Conveyor data
+        amqp_ch.assertQueue('FAPS_DEMONSTRATOR_LiveStreamData_ConveyorData_Visualisation', { exclusive: false, durable: false, autoDelete: true }, function(err, q) {
+            if (err) {
+                logger.error('AMQP Queue Assertion Error: ' + err.toString());
+            } else {
+                logger.info(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue);
+                ch.bindQueue(q.queue, "FAPS_DEMONSTRATOR_LiveStreamData_ConveyorData", '');
+                ch.consume(q.queue, function(msg) {
+                    // Save the data
+                    last_conveyor_data = JSON.parse(msg.content.toString());
                 }, { noAck: true });
             }
         });
