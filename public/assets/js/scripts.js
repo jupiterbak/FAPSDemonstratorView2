@@ -262,6 +262,120 @@
 		$('#StateCurrent_temp').text('' + OMACState[msg.value.data['OmacStateCurrent#']]);
     });
 
+    /*    Sand Key Diagram
+    ------------------------------------------------------*/
+    var last_sandkey_data = null;
+    socket.on('GlobalData', function(data) {
+        last_sandkey_data = data;
+    });
+    function loadSandKey() {  
+        var robot_data =  last_sandkey_data? JSON.parse(last_sandkey_data.robot).value:{};
+          
+        var _Axis_X = Math.abs(robot_data.data? robot_data.data.Portal_Wirkleistung_L1/1000.0 : 5);
+        var _Axis_Y = Math.abs(robot_data.data? robot_data.data.Portal_Wirkleistung_L2/1000.0 : 5);
+        var _Axis_Z = Math.abs(robot_data.data? robot_data.data.Portal_Wirkleistung_L3/1000.0 : 5);
+        var _Motor_Band_1 = Math.abs(last_sandkey_data?last_sandkey_data.conveyor.value.DB33.Motor_Band_1_Power : 0);
+        var _Motor_Band_2 = Math.abs(last_sandkey_data?last_sandkey_data.conveyor.value.DB33.Motor_Band_2_Power : 0);
+        var _Motor_Band_3 = Math.abs(last_sandkey_data?last_sandkey_data.conveyor.value.DB33.Motor_Band_3_Power : 0);
+        var _Motor_Umsetzer_11 = Math.abs(last_sandkey_data?last_sandkey_data.conveyor.value.DB33.Motor_Umsetzer_11_Power : 0);
+        var _Motor_Umsetzer_12 = Math.abs(last_sandkey_data?last_sandkey_data.conveyor.value.DB33.Motor_Umsetzer_12_Power : 0);
+        var _Motor_Umsetzer_21 = Math.abs(last_sandkey_data?last_sandkey_data.conveyor.value.DB33.Motor_Umsetzer_21_Power : 0);
+        var _Motor_Umsetzer_22 = Math.abs(last_sandkey_data?last_sandkey_data.conveyor.value.DB33.Motor_Umsetzer_22_Power : 0);
+        var _Robot_Components = 0.005;
+        var _Conveyor_Component = 0.005;        
+        return {
+                "nodes":[
+                    {"name":"Grid","id":"Grid"},
+                    {"name":"Conveyor","id":"Conveyor"},
+                    {"name":"Robot","id":"Robot"},
+                    {"name":"Axis_X", "id":"Axis_X"},
+                    {"name":"Axis_Y", "id":"Axis_Y"},
+                    {"name":"Axis_Z", "id":"Axis_Z"},
+                    {"name":"Robot_Components", "id":"Robot_Components"},
+                    {"name":"Band_1", "id":"Band_1"},
+                    {"name":"Band_2", "id":"Band_2"},
+                    {"name":"Band_3", "id":"Band_3"},
+                    {"name":"Motor_Band_1", "id":"Motor_Band_1"},
+                    {"name":"Motor_Band_2", "id":"Motor_Band_2"},
+                    {"name":"Motor_Band_3", "id":"Motor_Band_3"},
+                    {"name":"Motor_Umsetzer_11", "id":"Motor_Umsetzer_11"},
+                    {"name":"Motor_Umsetzer_12", "id":"Motor_Umsetzer_12"},
+                    {"name":"Motor_Umsetzer_21", "id":"Motor_Umsetzer_21"},
+                    {"name":"Motor_Umsetzer_22", "id":"Motor_Umsetzer_22"},
+                    {"name":"Conveyor_Component", "id":"Conveyor_Component"},
+                ],
+                "links":[
+                    // Band_1
+                    {"source":7,"target":10,"value":_Motor_Band_1},
+                    {"source":7,"target":13,"value":_Motor_Umsetzer_11},
+                    {"source":7,"target":14,"value":_Motor_Umsetzer_12},
+                    // Band_2
+                    {"source":8,"target":11,"value":_Motor_Band_2},
+                    {"source":8,"target":15,"value":_Motor_Umsetzer_21},
+                    {"source":8,"target":16,"value":_Motor_Umsetzer_22},
+                    // Band_3
+                    {"source":9,"target":12,"value":_Motor_Band_3},
+                    
+                    // Conveyor
+                    {"source":1,"target":7,"value":_Motor_Band_1 + _Motor_Umsetzer_11 + _Motor_Umsetzer_12},
+                    {"source":1,"target":8,"value":_Motor_Band_2 + _Motor_Umsetzer_21 + _Motor_Umsetzer_22},
+                    {"source":1,"target":9,"value":_Motor_Band_3 },
+                    {"source":1,"target":17,"value":_Conveyor_Component },
+
+                    // Robot Components
+                    {"source":2,"target":6,"value":_Robot_Components},
+                    {"source":2,"target":3,"value":_Axis_X},
+                    {"source":2,"target":4,"value":_Axis_Y},
+                    {"source":2,"target":5,"value":_Axis_Z},
+
+                    // Grid
+                    {"source":0,"target":2,"value":_Robot_Components + _Axis_Z + _Axis_Y + _Axis_X},
+                    {"source":0,"target":1,"value":_Motor_Band_1 + _Motor_Umsetzer_11 + _Motor_Umsetzer_12 + _Motor_Band_2 + _Motor_Umsetzer_21 + _Motor_Umsetzer_22 + _Motor_Band_3 + _Conveyor_Component},
+
+                   ]
+                }; 
+             
+      }
+    // Generate SandKey Diagram
+    let configSankey = {
+        margin: { top: 0, left: 0, right: 0, bottom: 0 },
+        nodes: {
+            dynamicSizeFontNode: {
+                enabled: true,
+                minSize: 10,
+                maxSize: 16
+            },
+            draggableX: false,
+            draggableY: true,
+            //colors: d3.scaleOrdinal(d3.schemeCategory10),
+            //colors: d3.scaleOrdinal(['#41aaaa', '#49a5a5', '#519f9f', '#589a9a', '#609595', '#688f8f', '#708a8a', '#788585'])
+            //colors: d3.scaleOrdinal(['#41aaaa', '#59b5b5','#71bfbf','#88caca','#a0d4d4','#b8dfdf','#d0eaea','#e7f4f4'])
+            //colors: d3.scaleOrdinal(['#41aaaa', '#4176aa', '#4141aa', '#7641aa', '#aa41aa', '#aa4176'])
+            //colors: d3.scaleOrdinal(['#15534C', '#206555', '#30785B', '#448B5F', '#5D9D61', '#79AF61', '#99C160', '#BCD160', '#E2E062'])
+            colors: d3.scaleOrdinal(['#5d7723', '#96c139', '#f39c12' ])
+        },
+        links: {
+            title: "Mytitle",
+            formatValue: function(val) {
+                return d3.format(",.2f")(val) + ' W';
+            }
+        },
+        tooltip: {
+            infoDiv: true,
+            labelSource: 'Input:',
+            labelTarget: 'Output:'
+        }
+    };
+
+    let SandkeyObject = loadSandKey();
+    let objSankey = sk.createSankey('#sandKey_graph', configSankey, SandkeyObject);
+    let SandkeyInterval = setInterval(function() {
+        SandkeyObject = loadSandKey();
+        objSankey.updateData(SandkeyObject);
+    }, 1000);
+
+
+
     // socket.on('order_list', function(_list) {  
     //     // // Destroy the old table
     //     // if(last_table)

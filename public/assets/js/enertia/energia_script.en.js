@@ -85,8 +85,8 @@
             "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             "shortMonths": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         },
-        ENUS = d3.locale(en_US),
-        iso = d3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ"),
+        ENUS = d3V3.locale(en_US),
+        iso = d3V3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ"),
         tooltipDateFormat = ENUS.timeFormat("%A %d, %H:%M");
 
     var tablaIdsOrdenados = ['axis_1', 'axis_2', 'axis_3', 'components', 'conveyor'],
@@ -208,7 +208,7 @@
 
     //DIBUJO BASE 
 
-    var svg = d3.select("#ct-chart-d3").append('svg')
+    var svg = d3V3.select("#ct-chart-d3").append('svg')
         .attr('width', canvasWidth)
         .attr('height', canvasHeight);
 
@@ -273,11 +273,11 @@
         .attr('fill', '#900');
 
 
-    var grupoHoras = d3.select("svg #horas")
+    var grupoHoras = d3V3.select("svg #horas")
         .attr('transform', 'translate(' + centerX + ',' + centerY + ')');
 
     // PASAR MINUTOS 24*60 
-    var horaRotation = d3.scale.linear()
+    var horaRotation = d3V3.scale.linear()
         .domain([0, 24 * 60])
         .range([0, 360]);
 
@@ -530,7 +530,7 @@
 
     function mousemove(d, i) {
 
-        var coords = d3.mouse(this),
+        var coords = d3V3.mouse(this),
             x = coords[0],
             y = coords[1],
             mth = Math,
@@ -580,20 +580,20 @@
         return d.id;
     }
 
-    var sizes = d3.scale.linear()
+    var sizes = d3V3.scale.linear()
         .range([10, 24]),
-        opacityScale = d3.scale.linear()
+        opacityScale = d3V3.scale.linear()
         .range([0.4, 1]),
-        colorDemand = d3.scale.linear()
+        colorDemand = d3V3.scale.linear()
         .range(['#c8a200','#c8a200']); //.range(['#996A00', '#990000']);
 
     // ESTA ESCALA ME PERMITE ESTABLECER EL MÁXIMO Y MÍNIMO CONSUMO EN FUNCIÓN DE LA DEMANDA
     // Y VARIAR EL MÁXIMO PORCENTAJE DE RADIO
 
-    var scaleRadius = d3.scale.linear()
+    var scaleRadius = d3V3.scale.linear()
         .range([0, radio]);
 
-    var dispatch = d3.dispatch("mouseenter");
+    var dispatch = d3V3.dispatch("mouseenter");
     dispatch.on("mouseenter", debounce(pintaDesglose, 125));
 
 
@@ -656,7 +656,7 @@
         horaBloque
             .text(ENUS.timeFormat("%H:%M")(tsDate) + "h");
 
-        var scaleDesglose = d3.scale.linear()
+        var scaleDesglose = d3V3.scale.linear()
             .range([0, formulaRadioDesglose]),
             tabla = [];
 
@@ -680,7 +680,7 @@
             })
             .attr('class', 'j-bloque')
             .each(function() {
-                var that = d3.select(this);
+                var that = d3V3.select(this);
 
                 that.append('rect')
                     .attr('width', 6)
@@ -754,11 +754,11 @@
             grosorGeneradora = porcentajesDemanda[i] / 100 * formulaRadioDesglose;
 
 
-            var that = d3.select(this)
+            var that = d3V3.select(this)
                 .transition()
                 .attr('transform', 'translate(0,' + acumuladoInner + ')')
                 .each(function() {
-                    var that = d3.select(this);
+                    var that = d3V3.select(this);
                     that.select('rect')
                         .transition()
                         .attr('height', grosorGeneradora);
@@ -790,7 +790,7 @@
 
     function getData(path) {
 
-        d3.json(path, function(error, data) {
+        d3V3.json(path, function(error, data) {
 
             if (error) throw error;
 
@@ -817,8 +817,8 @@
             datosJson.reverse();
 
 
-            var maxDemand = d3.max(datosJson, demFn),
-                minDemand = d3.min(datosJson, demFn),
+            var maxDemand = d3V3.max(datosJson, demFn),
+                minDemand = d3V3.min(datosJson, demFn),
                 generadoras = [];
 
             //RESET
@@ -852,7 +852,7 @@
             });
 
             for (key in tablaIdsConsumos) {
-                tablaIdsConsumos[key].med24h = d3.mean(tablaIdsConsumos[key].percent24h);
+                tablaIdsConsumos[key].med24h = d3V3.mean(tablaIdsConsumos[key].percent24h);
             }
 
 
@@ -899,7 +899,7 @@
 
                     dispatch.mouseenter(this, d);
 
-                    /*var that = d3.select(this)
+                    /*var that = d3V3.select(this)
                         that.style("filter", "url(#brightness)")  */
 
                     var tsDate = iso.parse(d.ts),
@@ -955,7 +955,7 @@
                 /*
                                 .on('mouseleave',function(){
 
-                                    var that = d3.select(this);
+                                    var that = d3V3.select(this);
                                         that.style("filter", "none")  
 
 
@@ -963,7 +963,7 @@
                 .each(function(d) {
 
                     //CREO LOS 'HUECOS'
-                    var group = d3.select(this),
+                    var group = d3V3.select(this),
                         ln = 8,
                         n = 0;
 
@@ -972,21 +972,21 @@
                         .data(tablaIdsOrdenados)
                         .enter().append('path')
                         .on('click', function() {
-                            var that = d3.select(this);
+                            var that = d3V3.select(this);
                             console.log("click", iso.parse(d.ts), that.datum(), d[that.datum()]);
                         })
                         .on('mouseover', function() {
-                            var that = d3.select(this);
+                            var that = d3V3.select(this);
                             that
                                 .attr('fill', '#' + tablaIdsInfo[that.datum()].highlightColor);
                         })
                         .on('mouseout', function() {
-                            var that = d3.select(this);
+                            var that = d3V3.select(this);
                             that
                                 .attr('fill', '#' + tablaIdsInfo[that.datum()].color);
                         })
                         .attr('fill', function(d, n) {
-                            var that = d3.select(this);
+                            var that = d3V3.select(this);
                             return '#' + tablaIdsInfo[that.datum()].color;
                         });
                     n++;
@@ -1001,7 +1001,7 @@
             rads.each(function(d, i) {
 
                 //console.log ('rad',i, this.id);
-                paths = d3.select(this).selectAll('path');
+                paths = d3V3.select(this).selectAll('path');
 
                 // CALCULAMOS LA SUMA DE LAS DIFERENTES ENERGÍAS PROVEEDORAS
                 var generadoras = [d.axis_1, d.axis_2, d.axis_3, d.conveyor, d.components],
@@ -1011,7 +1011,7 @@
                     grosorGeneradora = 0,
                     ln = porcentajesDemanda.length,
                     n = 0,
-                    arc = d3.svg.arc(),
+                    arc = d3V3.svg.arc(),
                     tsDate = iso.parse(d.ts),
                     h = tsDate.getHours(),
                     m = tsDate.getMinutes(),
@@ -1024,7 +1024,7 @@
 
                     grosorGeneradora = porcentajesDemanda[n] / 100 * scaleRadius(d.dem);
 
-                    d3.select(this).attr('d', arc.startAngle(function() {
+                    d3V3.select(this).attr('d', arc.startAngle(function() {
                             return grados_a_radianes(angle);
                         }).endAngle(function() {
                             return grados_a_radianes(angle + arcoPorcion);
@@ -1068,13 +1068,13 @@
 
             //ACTUALIZO HTML
 
-            var energias = d3.select('#j-energias').selectAll(".energia")
+            var energias = d3V3.select('#j-energias').selectAll(".energia")
                 .data(tablaIdsOrdenados);
 
             energias.each(function(d, i) {
 
                 var datos = tablaIdsInfo[d],
-                    that = d3.select(this),
+                    that = d3V3.select(this),
                     id = d;
 
                 that.select('.energia__titulo')
@@ -1083,7 +1083,7 @@
                 that.selectAll('.energia__subtitulo')
                     .data(['Current Contribution', 'Average 24h', 'Emissions CO<sub>2</sub>'])
                     .each(function(d) {
-                        d3.select(this)
+                        d3V3.select(this)
                             .html(function() {
                                 return d;
                             });
@@ -1103,7 +1103,7 @@
                     });
                 that.select('.j-aportacion-media-' + id)
                     .text(function() {
-                        return ENUS.numberFormat(",.2f")(d3.mean(datosJson, function(d) {
+                        return ENUS.numberFormat(",.2f")(d3V3.mean(datosJson, function(d) {
                             return d[id];
                         })) + "W";
                     });

@@ -183,6 +183,10 @@ amqp.connect("amqp://esys:esys@cloud.faps.uni-erlangen.de", function(err, conn) 
                         last_fetch = Date.now();
                     }
                     io.emit('AMQPMachineData', msg.content.toString());
+                    io.emit('GlobalData', {
+                        'robot': msg.content.toString(),
+                        'conveyor': last_conveyor_data
+                    });
 
                 }, { noAck: true });
             }
