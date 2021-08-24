@@ -7,7 +7,7 @@ var express = require('express'),
     app = module.exports.app = express();
 var bodyParser = require("body-parser");
 var webserver = http.createServer(app);
-var io = require('socket.io').listen(webserver);
+var io = require('socket.io')(webserver);
 var amqp = require('amqplib/callback_api');
 var amqp_connection = null;
 var amqp_ch = null;

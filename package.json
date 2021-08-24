@@ -4,14 +4,14 @@
   "description": "Demonstrator Screen",
   "main": "app.js",
   "dependencies": {
-    "amqplib": "^0.5.1",
+    "amqplib": "^0.8.0",
     "async": "^2.3.0",
     "body-parser": "^1.17.2",
     "colors": "^1.1.2",
     "express": "^4.15.2",
     "long": "^3.2.0",
     "request": "^2.75.0",
-    "socket.io": "^2.3.0",
+    "socket.io": "^4.1.3",
     "util": "^0.10.3",
     "uuid": "^3.3.3",
     "winston": "^3.2.1"
